@@ -13,6 +13,9 @@
 .galleryItem:hover {
     border-color: #820EFDB2;
 }
+.selected{
+    border-color: #34ED43B2;
+}
 
 .galleryImage {
     width: 100%;

@@ -17,7 +17,14 @@ const App = () => {
     }
 
     function randomArrange(){
-        setImages([...images].sort(() => Math.random() - 0.5));
+        setImages((prevImages) => {
+            const currentImage = prevImages[currentIndex];
+            const randomized = [...prevImages].sort(() => Math.random() - 0.5);
+            //pentru ca sa ramana aceeasi image in MainImage la randomizarea listei, caut indexul ei nou prin url
+            const newIndex = randomized.findIndex(img => img.url === currentImage.url);
+            setCurrentIndex(newIndex);
+            return randomized;
+        });
     }
 
     function randomize(){
@@ -28,7 +35,9 @@ const App = () => {
         <>
             <MainImage image={images[currentIndex]?.url} />
             <ControlButtons goLeft={goLeft} goRight={goRight} randomArrange={randomArrange} randomize={randomize} />
-            <Gallery images={images} onClickImage={(index) => setCurrentIndex(index)} />
+            <Gallery images={images}
+                     curentIndex={currentIndex}
+                     onClickImage={(index) => setCurrentIndex(index)} />
         </>
     );
 };
